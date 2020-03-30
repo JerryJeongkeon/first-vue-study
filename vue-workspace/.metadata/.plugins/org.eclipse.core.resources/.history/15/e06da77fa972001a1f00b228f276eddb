@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+		window.onload = function(){
+			var test1 = new Vue({
+				el : '#test1',
+				data : {
+					str1 : '문자열1',
+					int1 : 100,
+					float1 : 11.11,
+				}
+			})
+			
+			var test2 = new Vue({
+				el : '.test2',
+				data : {
+					str2 : '문자열2',
+					int2 : 200,
+					float2 : 22.22
+				}
+			})
+		}
+</script>
+</head>
+<body>
+		<div id="test1">
+			<h3>{{str1}}</h3>
+			<h3>{{int1}}</h3>
+			<h3>{{float1}}</h3>
+		</div>
+		
+		<div class="test2">
+			<h3>{{str2}}</h3>
+			<h3>{{int2}}</h3>
+			<h3>{{float2}}</h3>
+		</div>
+</body>
+</html>
