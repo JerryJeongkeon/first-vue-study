@@ -1,4 +1,4 @@
-## 🚩 Vue 개념잡기               start _ 2020-03-31
+🚩 Vue 개념잡기               start _ 2020-03-31
 
 
 
@@ -78,71 +78,107 @@ Eclipse에서  [ **Window -> Preference -> Web -> Template -> New** 버튼 클�
 
 
 
+##### el : 웹 애플리케이션 내의 html 요소 중 Vue 객체가 관리할 태그를 설정한다.
+
+
+
+##### data: **웹 애플리케이션에서 사용하는 데이터를 설정한다.** 
+
+
+
+##### method : Html을 랜더링할 때 호출할 함수를 등록한다.
+
+##### 					이 함수가 호출하는 HTML코드를 랜더링 데이터로 사용한다.
 
 
 
 
-### 1. 기본 프로젝트 생성
-
-​	1-1 기본 Maven 프로젝트 생성 ( new -> Maven Project )
 
 
 
-​	1-2 pom.xml 작성
+## :heavy_check_mark: Vue 라이프사이클 다이어그램
 
 
 
-```java
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>spring4</groupId>
-  <artifactId>testPjt</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
-  	<dependencies>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>4.1.0.RELEASE</version>
-		</dependency>
-	</dependencies>
+![img](./lifecycle.png)
 
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>utf-8</encoding>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-  
-</project>
+
+
+
+
+
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+window.onload = function(){	
+	var vm1 = new Vue({
+		// el : '#test1',
+		data : {
+			a1 : 100
+		},
+		// Vue 객체가 관리할 요소들이 만들어지기 전에 호출되는 함수
+		beforeCreate : function(){
+			console.log('Vue 객체가 관리할 요소들이 만들어지기 전 입니다.')
+			console.log('a1 : ' + this.a1 )
+		},
+		// Vue 객체가 관리할 요소들이 만들어지고 난 이후
+		created : function(){
+			console.log('Vue 객체가 관리할 요소들이 만들어진 후 입니다.')
+			console.log('a1 : ' + this.a1)
+		},
+		// Vue 객체가 관리할 HTML 태그 객체가 할당 되기 전
+		beforeMount : function(){
+			console.log('Vue 객체가 관리할 태그가 할당 되기 전입니다.')
+		},
+		// Vue 객체가 관리할 HTML 태그 객체가 할당 된 후
+		mounted : function(){
+			console.log('Vue 객체가 관리할 태그가 할당 된 이후입니다.')
+		},
+		beforeUpdate : function(){
+			console.log('관리하고 있는 HTML 요소 내부가 변경되기 전입니다.')
+		},
+		updated : function(){
+			console.log('관리하고 있는 HTML 요소 내부가 변경된 후입니다.')
+		},
+		beforeDestroy : function(){
+			console.log('Vue 객체의 기능이 소멸되기 전입니다')
+		},
+		destroyed : function(){
+			console.log('Vue 객체의 기능이 소멸된 후입니다.')
+		},
+		
+		methods: {
+			setValue : function(){
+				this.a1 = 200
+			}
+		}
+	})
+	
+	// Vue 객체에 마운트 된 태그를 관리하는 요소를 소멸시킨다.
+	vm1.$destroy()
+	
+	// Vue 객체에 태그를 할당한다.
+	vm1.$mount('#test1')
+}
+</script>
+</head>
+<body>
+	<div id="test1">
+		<h3>{{a1}}</h3>
+		<button type="button" v-on:click="setValue">값 변경</button>
+	</div>
+</body>
+</html>
 ```
 
 
-
-이곳에서 기본 pom.xml파일에 
-
-두 가지,  org.springframework와 maven-compiler-plugin을 추가해주었다.
-
-
-
-:soon:   plugin을 추가해준 뒤 [ Maven -> Update Project ] 를 진행해준다.
-
-:soon:  ​ 가장 기본의 Maven 프로젝트 src/main/ java와 resources 생성되며
-
-:soon:   이후 테스트에 사용할 src/test/ java와 resources 생성된다.
-
-
-
-java 폴더는 JAVA 파일들이 위치하는 곳이고 
-
-​	resources 는 자원을 관리하는 폴더로 스프링 설정 파일(XML) 또는 프로퍼티 파일 등을 관리
 
 
 
