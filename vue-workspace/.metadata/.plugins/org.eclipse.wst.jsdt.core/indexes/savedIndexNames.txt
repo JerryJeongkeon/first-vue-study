@@ -1,5 +1,7 @@
 INDEX VERSION 1.4+C:\Vue\vue-workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3725881793.index
 688453810.index
 2962926479.index
+2036008048.index
 1445591072.index
 174014547.index

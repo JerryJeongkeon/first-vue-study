@@ -186,6 +186,82 @@ window.onload = function(){
 
 
 
+## :heavy_check_mark: Template
+
+
+
+#### v-html : 지정된 데이터를 html 코드로 인식하여 바인딩한다.
+
+
+
+#### v-bind : 속성명 :  지정된 데이터를 지정된 속성 값으로 설정한다.
+
+
+
+
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	window.onload = function(){
+		var test1 = new Vue({
+			el : '#test1',
+			data : {
+				a1 : '문자열1',
+				a2 : '문자열2',
+				a3 : '<h2>문자열3</h2>',
+				a4 : 'image/기존 IP주소.png',
+				a5 : 300,
+				a6 : 200
+			}
+		})
+	}
+</script>
+</head>
+<body>
+	<div id="test1">
+		<h3>{{a1}}</h3>
+		<h3>{{a2}}</h3>
+		<h3>{{a3}}</h3>
+		<div v-html='a3'></div>
+		
+		<img src='{{a4}}'>
+		
+		<img v-bind:src='a4' v-bind:width='a5' v-bind:height='a6'>
+	</div>
+</body>
+</html>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
