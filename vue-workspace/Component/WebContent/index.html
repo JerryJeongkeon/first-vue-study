@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	// Vue.component를 사용해 component 정의해주기
+	Vue.component('component1', {
+		template : '<div>' + '<h3>첫 번째 h3태그 입니다.</h3>'
+				+ '<h3>두 번째 h3 태그 입니다</h3>' + '</div>'
+	})
+
+	Vue.component('component2', {
+		template : '<div>' + '<h3>세 번째 h3태그 입니다.</h3>' + '</div>'
+	})
+	
+	Vue.component('data_component', {
+		template: '<div>'
+		+ '<h3> 데이터를 사용하는 템플릿 </h3>'
+		+ '<h3>{{a1}}</h3>'
+		+ '<h3>{{a2}}</h3>'
+		+ '<h3>{{test_method1()}}</h3>'
+		+ '</div>',
+		
+		// Vue 객체에서 data옵션은 반드시 함수로 정의해야 한다.
+		data : function(){
+			rtn_obj = {
+					a1 : '문자열1',
+					a2 : '문자열2'
+			}
+			return rtn_obj
+		},
+		methods : {
+			test_method1 : function(){
+				return '메소드 호출'
+			}
+		}
+	})
+
+	window.onload = function() {
+		var test1 = new Vue({
+			el : '#test1'
+		})
+
+		var test2 = new Vue({
+			el : '#test2',
+		})
+
+		// Vue를 생성할 때, el과 component를 모두 정의해주기
+		// 	     * components의 컴포넌트는 test3 안에서만 사용 가능 !
+		var test3 = new Vue({
+			el : '#test3',
+			components : {
+				'component3' : {
+					template : '<h3>네 번째 component</h3>'
+				},
+				'component4' : {
+					template : '<h3>다섯 번째 component 입니다.</h3>'
+				}
+			}
+		})
+		
+		var test4 = new Vue({
+			el: '#test4',
+		})
+		
+		//var a1 = 0;
+		var a1 = 10;
+		
+		// Vue 객체 외부에 있는 component들을 사용
+		var test5 = new Vue({
+			el: '#test5',
+			components : {
+				'component5' : {
+					template: '<h3>여섯 번째 h3 태그입니다.</h3>'
+				},
+				'component6' : {
+					template : '<h3>일곱 번째 h3 태그입니다.</h3>'
+				}
+			},
+			/*
+			data : {
+				view1 : 'component5',
+				view2 : 'component6'
+			}*/
+			data : function(){
+				if(a1 == 0){
+					return {
+						view1: 'component5',
+						view2 : 'component1'
+					}
+				} else {
+					return {
+						view1: 'component6',
+						view2 : 'component2'
+					}
+				}
+			}
+		})
+
+	}
+</script>
+</head>
+<body>
+	<div id="test1">
+		<component1></component1>
+	</div>
+	<hr />
+	<div id="test2">
+		<component1></component1>
+		<component2></component2>
+
+		<!--  외부 Vue의 컴포넌트 이므로 사용 불가능 -->
+		<!-- <component3></component3>  -->
+	</div>
+	<hr />
+	<div id="test3">
+		<component3></component3>
+		<component4></component4>
+	</div>
+	<hr />
+	<div id="test4">
+		<data_component></data_component>
+	</div>
+	<hr/>
+	<div id="test5">
+	<!-- 
+		<component5></component5>
+		<component6></component6>
+		 -->
+		 
+		 <!--  동적으로 component 사용
+		 <component v-bind:is="view2"></component>
+		 <component v-bind:is="view1"></component>
+		  -->
+		  
+		  <component v-bind:is="view1"></component>
+		  <component v-bind:is="view2"></component>
+	</div>
+</body>
+</html>
